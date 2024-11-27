@@ -16,17 +16,22 @@ public:
 	// Sets default values for this component's properties
 	UScoreOnHitComponent();
 
+    // Points awarded for hitting this object
+    UPROPERTY(EditAnywhere, Category = "Score")
+    int32 PointsAwarded = 10;
+
 protected:
+    bool IsHit = false;
+
+    UPROPERTY(EditAnywhere, Category = "Score")
+    float ScalingFactor = 0.5;
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 private:
     UFUNCTION()
     void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
-    // Points awarded for hitting this object
-    UPROPERTY(EditAnywhere, Category = "Score")
-    int32 PointsAwarded = 10;
 
     // Reference to the owning actor's collision component
     UPrimitiveComponent* CollisionComponent = nullptr;

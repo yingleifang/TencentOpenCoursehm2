@@ -29,15 +29,29 @@ void UScoreOnHitComponent::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 {
     if (OtherActor)
     {
-
         Ahm2PlayerController* PlayerController = Cast<Ahm2PlayerController>(OtherActor->GetInstigatorController());
         if (PlayerController)
         {
-            // Award points to the player
-            PlayerController->OnTargetHit(GetOwner(), PointsAwarded);
+            if (IsHit == false)
+            {
+                // scale it down;
+                AActor* OwnerActor = GetOwner();
+                if (OwnerActor)
+                {
+                    FVector CurrentScale = OwnerActor->GetActorScale3D();
+                    FVector NewScale = CurrentScale * ScalingFactor;
+                    OwnerActor->SetActorScale3D(NewScale);
+                    IsHit = true;
+                }
+            }
+            else
+            {
+                // Award points to the player
+                PlayerController->OnTargetHit(GetOwner(), PointsAwarded);
 
-            // Optionally destroy the actor after scoring
-            GetOwner()->Destroy();
+                // Optionally destroy the actor after scoring
+                GetOwner()->Destroy();
+            }
         }
     }
 }

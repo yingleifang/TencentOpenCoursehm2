@@ -17,9 +17,6 @@ void Ahm2PlayerController::BeginPlay()
 	}
 	// Initialize score
 	PlayerScore = 0;
-
-	// Log initial score
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Game Started! Initial Score: 0"));
 }
 
 // Called when the player hits a target
@@ -29,7 +26,7 @@ void Ahm2PlayerController::OnTargetHit(AActor* HitTarget, int32 PointsAwarded)
 	PlayerScore += PointsAwarded;
 
 	// Log the updated score
-	FString ScoreMessage = FString::Printf(TEXT("Target Hit! Score: %d"), PlayerScore);
+	FString ScoreMessage = FString::Printf(TEXT("Current Score: %d"), PlayerScore);
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, ScoreMessage);
 
 	// Optionally destroy the target
